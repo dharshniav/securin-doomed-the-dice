@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            /* background-color: #0b0b0c; */
+            background-size:cover;
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6q-jOe1EBRAyMgPiDng0wIoYrB8DqLjnaa69mJBswMFpxlqTML9NS0S8E0ANJcOXRnyc&usqp=CAU");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #ecebee;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        #dice-container {
+            
+            justify-content: space-between;
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
+            /* box-shadow: 0 4px 8px red; Add this line for shadow */
+        }
+
+        .die {
+            width: 100px;
+        height: 100px;
+        border: 2px solid #010a08;
+        border-radius: 20px;
+        background-color: #fcfcfc;
+        margin-right: 30px; /* Adjust this value to set the gap */
+        display: flex;
+        margin-bottom:50px;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.1s ease-in-out;
+        position: relative;
+        box-shadow: 0 4px 8px rgb(243, 237, 237);
+            
+        }
+
+        
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            margin-top: 20px;
+            
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            /* box-shadow: 0 4px 8px rgb(243, 237, 237); */
+        }
+
+        .grid-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #494848;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease-in-out;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+
+        .grid-button:hover {
+            background-color: #111011;
+        }
+
+        .ungrid-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #dbd5cf;
+            color: #141414;
+            border-left: #010a08;
+            transition: background-color 0.3s ease-in-out;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .ungrid-button:hover {
+            background-color: #f5ecfa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dice Game</h1>
+
+    <div id="dice-container">
+        <div class="die" id="dieA" onclick="rollDie('A')">1</div>
+        <div class="die" id="dieB" onclick="rollDie('B')">1</div>
+    </div>
+
+    <div class="button-grid">
+        <button class="grid-button" onclick="rollBothDice()">Roll </button>
+        <button class="grid-button" onclick="resetDice()">Reset </button>
+    </div>
+
+    <div class="button-container">
+        <button class="grid-button" onclick="navigateTofirstsolution()"> Total outcomes</button>
+        <button class="grid-button" onclick="navigateTosecondsolution()">All Possible Combinations</button>
+        <button class="grid-button" onclick="navigateToThirdsolution()">Probability</button>
+        <button class="grid-button" onclick="navigateTofourthsolution()">Loki Doomed Dice</button>
+    </div>
+
+    <script>
+        function rollBothDice() {
+            rollDie('A');
+            rollDie('B');
+        }
+
+        function rollDie(die) {
+            const dieElement = document.getElementById(`die${die}`);
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            dieElement.innerText = randomNumber;
+        }
+
+        function resetDice() {
+            document.getElementById('dieA').innerText = '1';
+            document.getElementById('dieB').innerText = '1';
+        }
+
+        function navigateTofirstsolution() {
+            
+            window.location.href = "{{ url_for('Total_outcomes') }}"; 
+        }
+
+        function navigateTosecondsolution() {
+      
+            window.location.href = "{{ url_for('display') }}"; 
+        }
+
+        function navigateToThirdsolution() {
+            
+            window.location.href = "{{ url_for('probability') }}";
+        }
+        function navigateTofourthsolution() {
+          
+            window.location.href = "{{ url_for('newdice') }}";
+        }
+    </script>
+</body>
+</html>
